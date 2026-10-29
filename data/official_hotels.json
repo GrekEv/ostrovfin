@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Mercure Сочи Центр",
+    "address": "Сочи, ул. Орджоникидзе, 11А",
+    "url": "https://accor.ru/sochi/mercure-sochi-center/",
+    "claims": {
+      "dogs_allowed": true,
+      "pet_max_weight_kg": 20,
+      "pet_fee": {
+        "amount": 1000,
+        "currency": "RUB",
+        "per": "night"
+      },
+      "building_year": 2013,
+      "renovation_notice": "С 10 ноября 2025 года на сайте планировалось начало ремонтных работ. Срок окончания и актуальный статус не указаны; требуется подтверждение отельера."
+    },
+    "note": "Указаны также ограничения по высоте собаки до 40 см в холке. Проверяйте конкретную категорию номера.",
+    "id": "ca825155-8bff-594e-9d20-906b6f2713f8",
+    "lat": null,
+    "lon": null,
+    "coord_status": "not_geocoded",
+    "source_checked_at": "2026-10-26T18:00:00+00:00",
+    "provenance": "curated_official_page"
+  },
+  {
+    "name": "Pullman Sochi Centre",
+    "address": "Сочи, ул. Орджоникидзе, 11А",
+    "url": "https://pullman.accor.com/en/hotels/sochi/8591.html",
+    "claims": {
+      "dogs_allowed": true
+    },
+    "note": "Официальная страница сообщает о размещении собак малых и средних пород за доплату, но не фиксирует лимит в кг и размер платы.",
+    "id": "583f94f2-acfa-5dc8-a79c-930a3f7556d5",
+    "lat": null,
+    "lon": null,
+    "coord_status": "not_geocoded",
+    "source_checked_at": "2026-10-26T18:00:00+00:00",
+    "provenance": "curated_official_page"
+  },
+  {
+    "name": "SEA GALAXY Отель Конгресс и СПА",
+    "address": "Сочи, ул. Черноморская, 4/1",
+    "url": "https://seagalaxy.com/",
+    "claims": {
+      "balcony_in_all_rooms": true
+    },
+    "note": "Заявление о балконе в каждом номере от официального сайта, актуальность следует уточнять по типу номера.",
+    "id": "af7e983d-50b1-5e40-b90a-99df523d6674",
+    "lat": null,
+    "lon": null,
+    "coord_status": "not_geocoded",
+    "source_checked_at": "2026-10-26T18:00:00+00:00",
+    "provenance": "curated_official_page"
+  },
+  {
+    "name": "Radisson Collection Paradise Resort & Spa",
+    "address": "Сириус, ул. 65 лет Победы, 50",
+    "url": "https://www.radissonhotels.com/en-us/hotels/radisson-collection-resort-sochi-spa",
+    "claims": {
+      "dogs_allowed": true,
+      "cats_allowed": true,
+      "pet_max_weight_kg": 8,
+      "pet_fee": {
+        "amount": 3000,
+        "currency": "RUB",
+        "per": "night"
+      }
+    },
+    "note": "Вес 8 кг подтверждается правилами размещения на сайте отеля. Требуется разрешение администрации в соответствии с опубликованной политикой.",
+    "id": "7ec863ca-8bb5-580e-90c2-bcae668ce990",
+    "lat": null,
+    "lon": null,
+    "coord_status": "not_geocoded",
+    "source_checked_at": "2026-10-26T18:00:00+00:00",
+    "provenance": "curated_official_page"
+  }
+]

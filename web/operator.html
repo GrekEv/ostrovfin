@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Островок · операторская панель</title>
+<link rel="stylesheet" href="/app/operator.css">
+</head>
+<body>
+<div class="shell">
+  <header><a class="wordmark" href="/">◈ островок<span>.ai</span></a><span class="env">ОПЕРАТОР · ИССЛЕДОВАНИЯ</span></header>
+  <div class="heading"><div><span class="overline">ИНТЕЛЛЕКТУАЛЬНАЯ ПЛАТФОРМА</span><h1>Проверка фактов</h1><p>Одобряйте только сведения, сверенные с оригинальными документами. Проверенная публикация не гарантирует фактического состояния на месте.</p></div><button id="reload" class="secondary">Обновить данные</button></div>
+  <section id="login" class="login hidden"><h2>Доступ оператора</h2><p>Введите служебный токен. Он используется только для запросов этой страницы, не записывается в браузер.</p><label for="token">API-токен</label><div class="inputline"><input id="token" type="password" autocomplete="off" placeholder="OSTROVOK_API_TOKEN"><button id="connect">Подключиться</button></div></section>
+  <div id="error" role="alert" class="alert hidden"></div>
+  <div id="workspace" class="hidden">
+    <div class="metrics" id="summary"></div>
+    <div class="tabs"><button data-view="urban" class="selected">Городские записи</button><button data-view="building">История зданий</button><button data-view="media">Фотографии</button><button data-view="geo">Геометки</button><button data-view="refresh">Актуализация</button><button data-view="audit">История решений</button></div>
+    <div class="content"><div class="contenthead"><div><h2 id="section-title">На проверке</h2><p id="section-note">Откройте первоисточник и проверьте утверждение до публикации.</p></div><span id="item-count">—</span></div><div id="items" aria-live="polite"></div></div>
+  </div>
+  <footer>Островок AI · пилотная зона · данные неполные, отсутствие уведомлений не означает отсутствие строительных работ.</footer>
+</div>
+<script src="/app/operator.js" defer></script>
+</body>
+</html>

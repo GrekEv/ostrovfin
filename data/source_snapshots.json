@@ -1,0 +1,29 @@
+[
+  {
+    "provider": "hotel_official_site",
+    "external_id": "zhem.ru-home-2026-10-26",
+    "url": "https://www.en.zhem.ru/contacts/",
+    "payload": {
+      "hotel_id": "4b8ec4d1-edc1-59c0-ab4a-ed2c62f209a4",
+      "name": "Гранд отель «Жемчужина»",
+      "address": "г. Сочи, ул. Черноморская, 3"
+    },
+    "retrieved_at": "2026-10-26T00:00:00Z",
+    "provenance": "manual_snapshot",
+    "license": "metadata_only"
+  },
+  {
+    "provider": "hotel_coordinate_listing",
+    "external_id": "broni-travel-contacts-2026-10-26",
+    "url": "https://zhemchuzhina.broni.travel/contacts/",
+    "payload": {
+      "hotel_id": "4b8ec4d1-edc1-59c0-ab4a-ed2c62f209a4",
+      "lat": 43.570549,
+      "lon": 39.732251,
+      "coord_status": "third_party_reported"
+    },
+    "retrieved_at": "2026-10-26T00:00:00Z",
+    "provenance": "manual_snapshot",
+    "license": "metadata_only"
+  }
+]

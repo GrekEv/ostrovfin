@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f7f4">
+<meta name="description" content="Островок AI — исследование отелей с проверкой источников">
+<title>Островок AI — отели с доказательствами</title>
+<link rel="stylesheet" href="/app/styles.css">
+</head>
+<body>
+<div id="app">
+<header class="top">
+  <button class="brand" data-tab="search" aria-label="На главную"><span class="brand-icon">✳</span><span>островок<span class="brand-ai">.ai</span></span></button>
+  <div class="top-tools"><span id="mode" class="mode">СОЧИ · ПИЛОТ</span><button id="header-help" class="circle" aria-label="Как это работает">?</button></div>
+</header>
+<main>
+  <section id="search" class="screen">
+    <div class="hero">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> ОТДЫХ НА ВАШИХ УСЛОВИЯХ</div>
+      <h1>Ваш отель.<br><em>Без сюрпризов.</em></h1>
+      <p>Ищем не только по звёздам и отзывам. Собираем факты, проверяем источники и честно рассказываем, что неизвестно.</p>
+    </div>
+    <div class="search-panel">
+      <label for="query">Расскажите, какой отдых вы ищете</label>
+      <textarea id="query" rows="3" maxlength="1000" placeholder="Например: тихий отель, до пляжа 10 минут пешком, с собакой 12 кг"></textarea>
+      <div class="travel-dates">
+        <label for="arrival">Заезд <input id="arrival" type="date" aria-label="Дата заезда"></label>
+        <label for="departure">Выезд <input id="departure" type="date" aria-label="Дата выезда"></label>
+      </div>
+      <div class="date-hint">Даты нужны для проверки городских событий и ремонтных работ.</div>
+      <div class="suggestions" aria-label="Примеры поиска">
+        <button data-query="Тихий отель недалеко от моря">🌿 Тишина и море</button>
+        <button data-query="Отель с видом на закат">🌅 Закат из номера</button>
+        <button data-query="Отель с собакой 12 кг">🐾 С питомцем</button>
+        <button data-query="До пляжа 10 минут пешком">🚶 Пешком до пляжа</button>
+      </div>
+      <button id="find" class="primary">Подобрать отели <span aria-hidden="true">↗</span></button>
+      <label class="demo-opt-in"><input id="include-demo" type="checkbox"> Показать также вымышленные отели для демонстрации</label>
+      <div class="search-foot"><span class="dot"></span> Характеристики без источников не считаются подтверждёнными</div>
+    </div>
+    <div id="history-wrap" class="history-wrap hidden"><div class="section-heading compact"><h2>Недавние запросы</h2><button id="clear-history" class="text-button">Очистить</button></div><div id="history" class="history"></div></div>
+    <div id="results" class="results"><div class="section-heading"><div><span class="micro-label">ПОДБОРКА</span><h2>Подходящие варианты</h2></div><span id="result-count" class="count">—</span></div><div id="criteria" class="criteria"></div><div id="cards" aria-live="polite"><div class="empty">Попробуйте один из сценариев выше или расскажите о своей поездке.</div></div></div>
+    <div class="trust-strip"><div class="trust-icon">◎</div><div><strong>Показываем, что знаем точно</strong><p>Источники, даты и ограничения можно посмотреть в каждой карточке.</p></div></div>
+  </section>
+  <section id="detail" class="screen hidden"><button id="back" class="back-button">← К подборке</button><div id="detail-content"></div></section>
+  <section id="saved" class="screen hidden"><div class="screen-heading"><span class="micro-label">ВАША КОЛЛЕКЦИЯ</span><h1>Избранное</h1><p>Отели, которые вы хотите изучить подробнее. Список хранится в этом браузере.</p></div><div id="saved-content"></div></section>
+  <section id="compare" class="screen hidden"><div class="screen-heading"><span class="micro-label">УМНЫЙ ВЫБОР</span><h1>Сравнение</h1><p>Сравнивайте факты, а не рекламные описания. Можно выбрать до трёх отелей.</p></div><div id="compare-content"></div></section>
+  <section id="profile" class="screen hidden"><div class="screen-heading"><span class="micro-label">ОСТРОВОК AI</span><h1>Ваш кабинет</h1><p id="actor-message">Поиск открыт без регистрации.</p></div>
+    <div class="menu-list"><button id="open-help"><span>ⓘ</span><span><strong>Как устроен подбор</strong><small>Источники, статусы и ограничения</small></span><b>›</b></button><button id="open-quality"><span>◉</span><span><strong>Качество данных</strong><small>Покрытие, конфликты, измерения</small></span><b>›</b></button><button data-tab="hotelier" id="open-hotelier" class="hidden"><span>▣</span><span><strong>Кабинет отельера</strong><small>Ответы на вопросы агента</small></span><b>›</b></button></div>
+    <div class="notice">Это исследовательский пилот, а не система бронирования. Учебные отели доступны только при отдельном включении. Стоимость проживания и доступность номеров здесь не проверяются.</div>
+  </section>
+  <section id="help" class="screen hidden"><button class="back-button" data-tab="profile">← В кабинет</button><div class="screen-heading"><span class="micro-label">ПУТЕВОДИТЕЛЬ</span><h1>Как это работает</h1><p>Четыре коротких шага — от запроса до обоснованного выбора.</p></div><div class="steps"><article><span>01</span><div><h3>Опишите пожелания</h3><p>Например: «10 минут пешком до моря, можно с собакой, тихий номер».</p></div></article><article><span>02</span><div><h3>Агент разбирает условия</h3><p>Проверяет доступные характеристики. Отсутствующий факт остаётся неизвестным.</p></div></article><article><span>03</span><div><h3>Изучите доказательства</h3><p>У каждого утверждения показан источник; расчёт по прямой не подменяет пеший маршрут.</p></div></article><article><span>04</span><div><h3>Сравните и сохраните</h3><p>Посмотрите расхождения и задайте новые вопросы перед окончательным выбором.</p></div></article></div><div class="legend"><h2>Статусы данных</h2><p><span class="pill good">Заявлено источником</span> — сведения получены, но не обязательно независимо подтверждены.</p><p><span class="pill warn">Оценка</span> — приближённое вычисление или учебные данные.</p><p><span class="pill neutral">Неизвестно</span> — данных недостаточно.</p><p><span class="pill danger">Конфликт</span> — несколько источников не согласуются.</p></div></section>
+  <section id="quality" class="screen hidden"><button class="back-button" data-tab="profile">← В кабинет</button><div class="screen-heading"><span class="micro-label">ПРОЗРАЧНОСТЬ</span><h1>Качество данных</h1><p>Отображаем только те показатели, которые можем посчитать.</p></div><div id="metrics" class="metrics"></div><div class="notice">Точность не указывается без независимой размеченной выборки. Доля покрытия не эквивалентна достоверности.</div></section>
+  <section id="hotelier" class="screen hidden"><button class="back-button" data-tab="profile">← В кабинет</button><div class="screen-heading"><span class="micro-label">КАБИНЕТ ПАРТНЁРА</span><h1>Вопросы об отеле</h1><p>Отвечайте один раз. Агент предложит структурированные значения, а публикуете их вы.</p></div><div id="hotel-picker"></div><div id="hotel-questions"></div></section>
+</main>
+<nav class="bottom" aria-label="Основная навигация">
+<button data-tab="search" class="active"><span aria-hidden="true">⌕</span><small>Поиск</small></button>
+<button data-tab="saved"><span aria-hidden="true">♡</span><small>Избранное</small></button>
+<button data-tab="compare"><span aria-hidden="true">⇄</span><small>Сравнить</small></button>
+<button data-tab="profile"><span aria-hidden="true">♙</span><small>Кабинет</small></button>
+</nav>
+</div>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/app/app.js" defer></script>
+</body></html>

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "7914497a-b266-5276-bc74-b2be12a96e12", "name": "Демо «Лазурная терраса»", "address": "Сочи · вымышленный адрес", "lat": 43.57301, "lon": 39.73001,
+    "coord_status": "synthetic_fixture", "offer_id": null,
+    "facts": {"coast_straight_m": 240, "dogs_allowed": true, "cats_allowed": true, "pet_max_weight_kg": 15, "sunset_view": true, "noise_risk": "low"}
+  },
+  {
+    "id": "ea82d0e4-87e0-525a-868a-16c2d1242d0a", "name": "Демо «Тихий сад»", "address": "Сочи · вымышленный адрес", "lat": 43.57832, "lon": 39.72467,
+    "coord_status": "synthetic_fixture", "offer_id": null,
+    "facts": {"coast_straight_m": 870, "dogs_allowed": false, "cats_allowed": false, "sunset_view": false, "noise_risk": "low"}
+  },
+  {
+    "id": "ae851ccf-c6af-5299-89bf-1f8cf879319e", "name": "Демо «Панорама»", "address": "Сочи · вымышленный адрес", "lat": 43.56790, "lon": 39.72911,
+    "coord_status": "synthetic_fixture", "offer_id": null,
+    "facts": {"coast_straight_m": 110, "dogs_allowed": true, "pet_max_weight_kg": 7, "sunset_view": true, "noise_risk": "high"}
+  }
+]

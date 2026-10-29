@@ -1,0 +1,220 @@
+version: 1
+region: sochi-pilot
+features:
+- key: coast_straight_m
+  version: 1
+  label: Расстояние по прямой до береговой линии
+  description: Кратчайшее геодезическое расстояние до ближайшей размеченной линии
+    берега, не пеший маршрут.
+  data_type: number
+  scope: hotel
+  unit: m
+  ttl_days: 90
+  strategy: derived
+  calculator_key: geo.shortest_distance_to_coast_v1
+  inputs:
+  - hotel.coordinates
+  - osm.coastline
+  verify: requires_geometry_and_version
+- key: beach_route_m
+  version: 1
+  label: Пешеходный маршрут до доступного пляжа
+  description: Длина маршрута до доступного входа на пляж по пешеходной сети.
+  data_type: number
+  scope: hotel
+  unit: m
+  ttl_days: 30
+  strategy: derived
+  calculator_key: geo.walking_route_to_beach_v1
+  inputs:
+  - hotel.coordinates
+  - osm.beach_entrances
+  - pedestrian_routing
+  verify: requires_walk_route
+- key: beach_walk_minutes
+  version: 1
+  label: Пешком до пляжа
+  description: Время по пешеходному маршруту; нельзя подменять прямым расстоянием.
+  data_type: number
+  scope: hotel
+  unit: minutes
+  ttl_days: 30
+  strategy: derived
+  calculator_key: geo.walking_time_to_beach_v1
+  inputs:
+  - beach_route_m
+  - pedestrian_routing
+  verify: requires_walk_route
+- key: dog_park_walk_minutes
+  version: 1
+  label: Пешком до площадки для выгула
+  description: Время до подходящей площадки с подтверждённой разметкой.
+  data_type: number
+  scope: hotel
+  unit: minutes
+  ttl_days: 90
+  strategy: derived
+  calculator_key: geo.walking_time_to_dog_park_v1
+  inputs:
+  - hotel.coordinates
+  - osm.dog_parks
+  - pedestrian_routing
+  verify: requires_walk_route
+- key: dogs_allowed
+  version: 1
+  label: Можно с собакой
+  description: Разрешено размещение с собакой, с учётом ограничений по породе и категории
+    номера.
+  data_type: boolean
+  scope: hotel
+  unit: null
+  ttl_days: 30
+  strategy: hotelier
+  collection_policy: hotelier_or_official_policy
+  verify: hotelier_statement_with_effective_date
+- key: cats_allowed
+  version: 1
+  label: Можно с кошкой
+  description: Разрешено размещение с кошкой при указанных ограничениях.
+  data_type: boolean
+  scope: hotel
+  unit: null
+  ttl_days: 30
+  strategy: hotelier
+  collection_policy: hotelier_or_official_policy
+  verify: hotelier_statement_with_effective_date
+- key: pet_max_weight_kg
+  version: 1
+  label: Максимальный вес питомца
+  description: Верхний предел массы животного, если указан отельером.
+  data_type: number
+  scope: hotel
+  unit: kg
+  ttl_days: 30
+  strategy: hotelier
+  collection_policy: hotelier_or_official_policy
+  verify: positive_number_with_context
+- key: pet_fee
+  version: 1
+  label: Доплата за питомца
+  description: Сумма, валюта и расчётная единица (за ночь или за заезд).
+  data_type: object
+  scope: hotel
+  unit: money
+  ttl_days: 30
+  strategy: hotelier
+  collection_policy: hotelier_or_official_policy
+  verify: requires_currency_and_period
+- key: room_window_azimuth_deg
+  version: 1
+  label: Азимут окон конкретного типа номера
+  description: Направление окон в градусах от северного направления; не является доказательством
+    вида на закат.
+  data_type: number
+  scope: room_type
+  unit: deg
+  ttl_days: 365
+  strategy: hotelier
+  verify: room_identity_required
+- key: sunset_view
+  version: 1
+  label: Вид на закат из номера
+  description: Признак зависит от номера, этажа, времени года и препятствий обзору.
+  data_type: boolean
+  scope: room_date
+  unit: null
+  ttl_days: 60
+  strategy: hybrid
+  calculator_key: view.sunset_evidence_v1
+  inputs:
+  - room_window_azimuth_deg
+  - geo.obstacles
+  - hotelier.photos
+  verify: never_verified_from_azimuth_alone
+- key: noise_risk
+  version: 1
+  label: Риск шума
+  description: Оценочный риск на основании дороги, событий и стройки, не измерение
+    внутри номера.
+  data_type: string
+  scope: hotel_date
+  unit: null
+  ttl_days: 7
+  strategy: derived
+  calculator_key: geo.noise_risk_v1
+  inputs:
+  - geo.roads
+  - geo.events
+  - geo.construction
+  verify: display_as_estimate
+- key: active_construction_nearby
+  version: 1
+  label: Работы рядом в даты поездки
+  description: Требует геометрии площадки и временного пересечения; отсутствие записи
+    не равно false.
+  data_type: boolean
+  scope: hotel_date
+  unit: null
+  ttl_days: 7
+  strategy: hybrid
+  calculator_key: geo.construction_overlap_v1
+  inputs:
+  - city.construction_permits
+  - hotel.coordinates
+  - visit_window
+  verify: confirmed_event_required
+- key: building_year
+  version: 1
+  label: Год постройки
+  description: Год здания, с обязательной проверкой сопоставления адреса и объекта
+    Wikidata.
+  data_type: integer
+  scope: hotel
+  unit: year
+  ttl_days: 365
+  strategy: source
+  collection_policy: wikidata_wikipedia_municipal
+  verify: entity_match_required
+- key: building_history
+  version: 1
+  label: История здания
+  description: Краткое описание прежних функций здания с источниками.
+  data_type: string
+  scope: hotel
+  unit: null
+  ttl_days: 365
+  strategy: source
+  collection_policy: wikidata_wikipedia_municipal
+  verify: building_identity_required
+- key: rooftop_terrace
+  version: 1
+  label: Терраса на крыше
+  description: Наличие доступной гостям террасы, а не просто площадки на крыше.
+  data_type: boolean
+  scope: hotel
+  unit: null
+  ttl_days: 180
+  strategy: hybrid
+  collection_policy: photos_and_hotelier
+  verify: accessibility_confirmation_required
+- key: renovation_notice
+  version: 1
+  label: Уведомление о ремонте
+  description: Заявление источника о работах и их датах. Не устанавливает актуальную
+    активность стройки.
+  data_type: string
+  scope: hotel
+  unit: null
+  ttl_days: 7
+  strategy: source
+  verify: current_status_requires_hotelier
+- key: balcony_in_all_rooms
+  version: 1
+  label: Балкон в каждом номере
+  description: Заявление гостиницы, необходимо уточнить конкретную категорию номера.
+  data_type: boolean
+  scope: hotel
+  unit: null
+  ttl_days: 180
+  strategy: source
+  verify: room_category_requires_check

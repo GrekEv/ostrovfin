@@ -1,0 +1,41 @@
+services:
+  postgis:
+    image: postgis/postgis:15-3.5
+    environment:
+      POSTGRES_DB: ostrovok_travel
+      POSTGRES_USER: ostrovok_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - intelligence_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ostrovok_user -d ostrovok_travel"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "127.0.0.1:${OSTROVOK_POSTGRES_PORT:-55432}:5432"
+  intelligence:
+    build: .
+    depends_on:
+      postgis:
+        condition: service_healthy
+    command: ["sh", "-c", "python -m intelligence.database && exec uvicorn intelligence.api:app --host 0.0.0.0 --port 8090"]
+    environment:
+      OSTROVOK_STORAGE: postgres
+      OSTROVOK_DATABASE_URL: postgresql://ostrovok_user:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@postgis:5432/ostrovok_travel
+      OSTROVOK_MODE: ${OSTROVOK_MODE:-demo}
+      OSTROVOK_OFFICIAL_SEED: ${OSTROVOK_OFFICIAL_SEED:-true}
+      OSTROVOK_ALLOW_LOCAL_WRITE: "false"
+      OSTROVOK_LIVE_SOURCES: ${OSTROVOK_LIVE_SOURCES:-false}
+      OVERPASS_URL: ${OVERPASS_URL:-https://overpass-api.de/api/interpreter}
+      VALHALLA_URL: ${VALHALLA_URL:-https://valhalla1.openstreetmap.de/route}
+      OSTROVOK_API_TOKEN: ${OSTROVOK_API_TOKEN:?Set OSTROVOK_API_TOKEN in .env}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      OSTROVOK_HOTELIER_BINDINGS_JSON: ${OSTROVOK_HOTELIER_BINDINGS_JSON:-{}}
+      OSTROVOK_DEMO_SEED: ${OSTROVOK_DEMO_SEED:-false}
+      OSTROVOK_ALLOW_SERVICE_HOTELIER: "false"
+    ports:
+      - "127.0.0.1:${OSTROVOK_INTELLIGENCE_PORT:-8090}:8090"
+
+volumes:
+  intelligence_pgdata:

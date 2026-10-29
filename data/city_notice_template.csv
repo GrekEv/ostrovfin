@@ -1,0 +1,2 @@
+provider,source_reference,source_url,category,title,description,starts_on,ends_on,lat,lon,radius_m
+sochi_city_manual,example-001,https://example.org/official/notice-001,road_closure,Учебное ограничение движения,Синтетическая запись для проверки очереди модерации,2026-11-10,2026-11-12,43.5800,39.7200,100
